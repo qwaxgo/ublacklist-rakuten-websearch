@@ -1,0 +1,19 @@
+name: 楽天ウェブ検索
+version: 1.0.0
+description: 楽天ウェブ検索のウェブ検索結果をuBlacklistで扱うためのSERPINFO
+homepage: https://websearch.rakuten.co.jp/
+lastModified: 2026-08-04T00:00:00Z
+
+pages:
+  - name: Web
+    matches:
+      - https://websearch.rakuten.co.jp/Web?*
+    results:
+      - root: "#result-main .web-result > li"
+        url: a.window
+        props:
+          title: h2.title
+    commonProps:
+      $site: rakutenWebSearch
+      $category: web
+    delay: true
