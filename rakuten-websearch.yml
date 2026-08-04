@@ -1,19 +1,70 @@
 name: 楽天ウェブ検索
-version: 1.0.0
-description: 楽天ウェブ検索のウェブ検索結果をuBlacklistで扱うためのSERPINFO
+version: 1.1.0
+description: 楽天ウェブ検索のウェブ・お買い物・動画・旅行検索結果をuBlacklistで扱うためのSERPINFO
 homepage: https://websearch.rakuten.co.jp/
-lastModified: 2026-08-04T00:00:00Z
+lastModified: 2026-08-04T03:52:51Z
 
 pages:
   - name: Web
     matches:
       - https://websearch.rakuten.co.jp/Web?*
     results:
-      - root: "#result-main .web-result > li"
+      - root: "#result-main > ul.web-result > li"
         url: a.window
         props:
           title: h2.title
+        button: [inset, { top: "4px", right: "4px" }]
     commonProps:
       $site: rakutenWebSearch
       $category: web
-    delay: true
+    delay: 2000
+
+  - name: Shopping
+    matches:
+      - https://websearch.rakuten.co.jp/Shopping?*
+    results:
+      - root: "#shopping-items-container > li.item"
+        url: [attribute, "href", [upward, 1, ".item-info"]]
+        props:
+          title: .item-name
+        button: [inset, { top: "4px", right: "4px" }]
+    commonProps:
+      $site: rakutenWebSearch
+      $category: shopping
+    delay: 2000
+
+  - name: Videos
+    matches:
+      - https://websearch.rakuten.co.jp/Video?*
+    results:
+      - root: '#video-results > div[id^="video_"]'
+        url:
+          - regexSubstitute
+          - '^video_([^_]+)_[0-9]+$'
+          - "https://www.youtube.com/watch?v=\\1"
+          - [attribute, "id"]
+        props:
+          title: "#video-title"
+        button: [inset, { top: "4px", right: "4px" }]
+    commonProps:
+      $site: rakutenWebSearch
+      $category: videos
+    delay: 3000
+
+  - name: Travel
+    matches:
+      - https://websearch.rakuten.co.jp/Travel?*
+    results:
+      - root: "#travel-items-container > li.item"
+        url: ".item-info > a"
+        props:
+          title: .item-name
+        button: [inset, { top: "4px", right: "4px" }]
+    commonProps:
+      $site: rakutenWebSearch
+      $category: travel
+    delay: 2000
+
+# 「画像」はGoogle画像検索へ遷移するため、uBlacklist内蔵のGoogle SERPINFOが処理する。
+# 「その他」は地図・ニュース・国内株価・レシピ・商品価格・電子書籍を開くメニューであり、
+# それ自体には検索結果ページが存在しない。
