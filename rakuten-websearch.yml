@@ -1,7 +1,7 @@
 name: 楽天ウェブ検索
 version: 1.1.2
 description: 楽天ウェブ検索のウェブ・お買い物・動画・旅行検索結果をuBlacklistで扱うためのSERPINFO
-homepage: https://websearch.rakuten.co.jp/
+homepage: https://github.com/qwaxgo/ublacklist-rakuten-websearch
 lastModified: 2026-08-04T06:29:44Z
 
 pages:
