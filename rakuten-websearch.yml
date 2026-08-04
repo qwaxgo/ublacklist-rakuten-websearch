@@ -1,8 +1,8 @@
 name: 楽天ウェブ検索
-version: 1.1.1
+version: 1.1.2
 description: 楽天ウェブ検索のウェブ・お買い物・動画・旅行検索結果をuBlacklistで扱うためのSERPINFO
 homepage: https://websearch.rakuten.co.jp/
-lastModified: 2026-08-04T04:13:58Z
+lastModified: 2026-08-04T06:29:44Z
 
 pages:
   - name: Web
@@ -13,7 +13,10 @@ pages:
         url: a.window
         props:
           title: h2.title
-        button: [inset, { top: 0, right: 0, zIndex: 4 }, ".url"]
+        button:
+          - icon
+          - { style: "position: static; opacity: 1; flex: 0 0 auto; margin-left: 8px; z-index: 4;" }
+          - ".url"
     commonProps:
       $site: rakutenWebSearch
       $category: web
